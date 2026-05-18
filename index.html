@@ -145,21 +145,21 @@
 
   function update() {
     if (gameState === 'playing') {
-      bird.velocity += 0.6;
+      bird.velocity += 0.3;
       bird.y += bird.velocity;
       bird.rotation = Math.min(Math.max(bird.velocity * 0.08, -0.4), 1.2);
 
-      if (frame % 90 === 0) addPipe();
+      if (frame % 180 === 0) addPipe();
 
       for (let i = pipes.length - 1; i >= 0; i--) {
-        pipes[i].x -= 3;
+        pipes[i].x -= 1.5;
         if (pipes[i].x + pipes[i].width < -10) { pipes.splice(i, 1); continue; }
         if (!pipes[i].scored && pipes[i].x + pipes[i].width < bird.x) {
           pipes[i].scored = true; score++;
         }
       }
 
-      groundX = (groundX - 3) % 24;
+      groundX = (groundX - 1.5) % 24;
 
       const bx = bird.x - bird.width/2, by = bird.y - bird.height/2;
       const bw = bird.width, bh = bird.height;
@@ -257,7 +257,7 @@
     ctx.beginPath();
     ctx.ellipse(0, 0, w/2, h/2, 0, 0, Math.PI * 2);
     ctx.fill();
-    const wingY = Math.sin(frame * 0.3) * 6;
+    const wingY = Math.sin(frame * 0.15) * 6;
     ctx.fillStyle = COLORS.birdWing;
     ctx.beginPath();
     ctx.ellipse(-6, wingY + 4, 10, 7, -0.3, 0, Math.PI * 2);
@@ -325,7 +325,7 @@
 
   function flap() {
     if (gameState === 'waiting') startGame();
-    if (gameState === 'playing') bird.velocity = -8.5;
+    if (gameState === 'playing') bird.velocity = -6.0;
     if (gameState === 'over') startGame();
   }
 
